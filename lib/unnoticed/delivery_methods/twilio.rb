@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Twilio < Base
       def deliver

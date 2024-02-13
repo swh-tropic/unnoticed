@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module HasNotifications
     # Defines a method for the association and a before_destroy callback to remove notifications
     # where this record is a param
@@ -19,11 +19,11 @@ module Noticed
           model = options.fetch(:model_name, "Notification").constantize
           case current_adapter
           when "postgresql", "postgis"
-            model.where("params @> ?", Noticed::Coder.dump(param_name.to_sym => self).to_json)
+            model.where("params @> ?", Unnoticed::Coder.dump(param_name.to_sym => self).to_json)
           when "mysql2"
-            model.where("JSON_CONTAINS(params, ?)", Noticed::Coder.dump(param_name.to_sym => self).to_json)
+            model.where("JSON_CONTAINS(params, ?)", Unnoticed::Coder.dump(param_name.to_sym => self).to_json)
           when "sqlite3"
-            model.where("json_extract(params, ?) = ?", "$.#{param_name}", Noticed::Coder.dump(self).to_json)
+            model.where("json_extract(params, ?) = ?", "$.#{param_name}", Unnoticed::Coder.dump(self).to_json)
           else
             # This will perform an exact match which isn't ideal
             model.where(params: {param_name.to_sym => self})

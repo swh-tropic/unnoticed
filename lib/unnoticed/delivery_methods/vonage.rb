@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Vonage < Base
       def deliver

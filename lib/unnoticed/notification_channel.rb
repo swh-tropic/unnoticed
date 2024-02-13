@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   class NotificationChannel < ApplicationCable::Channel
     def subscribed
       stream_for current_user

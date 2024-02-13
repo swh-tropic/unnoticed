@@ -73,12 +73,12 @@ Each delivery method is able to transform this metadata that's best for the form
 
 #### Notification Objects
 
-Notifications inherit from `Noticed::Base`. This provides all their functionality and allows them to be delivered.
+Notifications inherit from `Unnoticed::Base`. This provides all their functionality and allows them to be delivered.
 
 To add delivery methods, simply `include` the module for the delivery methods you would like to use.
 
 ```ruby
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :database
   deliver_by :action_cable
   deliver_by :email, mailer: 'CommentMailer', if: :email_notifications?
@@ -130,7 +130,7 @@ Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 Like ActiveRecord, notifications have several different types of callbacks.
 
 ```ruby
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :database
   deliver_by :email, mailer: 'CommentMailer'
 
@@ -173,7 +173,7 @@ You can use the `if:` and `unless: ` options on your delivery methods to check t
 For example:
 
 ```ruby
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :email, mailer: 'CommentMailer', if: :email_notifications?
 
   def email_notifications?
@@ -217,7 +217,7 @@ Using `after_create` might cause the notification delivery methods to fail. This
 
 A common symptom of this problem is undelivered notifications and the following error in your logs.
 
-> `Discarded Noticed::DeliveryMethods::Email due to a ActiveJob::DeserializationError.`
+> `Discarded Unnoticed::DeliveryMethods::Email due to a ActiveJob::DeserializationError.`
 
 ### Renaming notifications
 
@@ -258,7 +258,7 @@ For example, emails will require a subject, body, and email address while an SMS
 A common pattern is to deliver a notification via the database and then, after some time has passed, email the user if they have not yet read the notification. You can implement this functionality by combining multiple delivery methods, the `delay` option, and the conditional `if` / `unless` option.
 
 ```ruby
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :database
   deliver_by :email, mailer: 'CommentMailer', delay: 15.minutes, unless: :read?
 end
@@ -269,7 +269,7 @@ Here a notification will be created immediately in the database (for display dir
 You can also configure multiple fallback options:
 
 ```ruby
-class CriticalSystemNotification < Noticed::Base
+class CriticalSystemNotification < Unnoticed::Base
   deliver_by :database
   deliver_by :slack
   deliver_by :email, mailer: 'CriticalSystemMailer', delay: 10.minutes, if: :unread?
@@ -297,7 +297,7 @@ To generate a custom delivery method, simply run
 This will generate a new `DeliveryMethods::Discord` class inside the `app/notifications/delivery_methods` folder, which can be used to deliver notifications to Discord.
 
 ```ruby
-class DeliveryMethods::Discord < Noticed::DeliveryMethods::Base
+class DeliveryMethods::Discord < Unnoticed::DeliveryMethods::Base
   def deliver
     # Logic for sending a Discord notification
   end
@@ -307,7 +307,7 @@ end
 You can use the custom delivery method thus created by adding a `deliver_by` line with a unique name and `class` option in your notification class.
 
 ```ruby
-class MyNotification < Noticed::Base
+class MyNotification < Unnoticed::Base
   deliver_by :discord, class: "DeliveryMethods::Discord"
 end
 ```
@@ -323,10 +323,10 @@ Delivery methods have access to the following methods and attributes:
 
 The presence of the delivery method options is automatically validated if using the `option(s)` method.
 
-If you want to validate that the passed options contain valid values, or to add any custom validations, override the `self.validate!(delivery_method_options)` method from the `Noticed::DeliveryMethods::Base` class.
+If you want to validate that the passed options contain valid values, or to add any custom validations, override the `self.validate!(delivery_method_options)` method from the `Unnoticed::DeliveryMethods::Base` class.
 
 ```ruby
-class DeliveryMethods::Discord < Noticed::DeliveryMethods::Base
+class DeliveryMethods::Discord < Unnoticed::DeliveryMethods::Base
   option :username # Requires the username option to be passed
 
   def deliver
@@ -338,12 +338,12 @@ class DeliveryMethods::Discord < Noticed::DeliveryMethods::Base
 
     # Custom validations
     if delivery_method_options[:username].blank?
-      raise Noticed::ValidationError, 'the `username` option must be present'
+      raise Unnoticed::ValidationError, 'the `username` option must be present'
     end
   end
 end
 
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :discord, class: 'DeliveryMethods::Discord'
 end
 ```
@@ -353,7 +353,7 @@ Now it will raise an error because a required argument is missing.
 To fix the error, the argument has to be passed correctly. For example:
 
 ```ruby
-class CommentNotification < Noticed::Base
+class CommentNotification < Unnoticed::Base
   deliver_by :discord, class: 'DeliveryMethods::Discord', username: User.admin.username
 end
 ```
@@ -363,7 +363,7 @@ end
 Callbacks for delivery methods wrap the *actual* delivery of the notification. You can use `before_deliver`, `around_deliver` and `after_deliver` in your custom delivery methods.
 
 ```ruby
-class DeliveryMethods::Discord < Noticed::DeliveryMethods::Base
+class DeliveryMethods::Discord < Unnoticed::DeliveryMethods::Base
   after_deliver do
     # Do whatever you want
   end

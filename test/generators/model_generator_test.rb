@@ -3,8 +3,8 @@
 require "test_helper"
 require "generators/noticed/model_generator"
 
-class Noticed::ModelGeneratorTest < ::Rails::Generators::TestCase
-  tests ::Noticed::Generators::ModelGenerator
+class Unnoticed::ModelGeneratorTest < ::Rails::Generators::TestCase
+  tests ::Unnoticed::Generators::ModelGenerator
 
   destination Rails.root
 

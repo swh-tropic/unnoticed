@@ -2,7 +2,7 @@
 
 require "rails/generators/named_base"
 
-module Noticed
+module Unnoticed
   module Generators
     class NotificationGenerator < Rails::Generators::NamedBase
       include Rails::Generators::ResourceHelpers

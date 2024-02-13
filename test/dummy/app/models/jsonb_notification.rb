@@ -1,4 +1,4 @@
 class JsonbNotification < ApplicationRecord
-  include Noticed::Model
+  include Unnoticed::Model
   self.table_name = "jsonb_notifications"
 end

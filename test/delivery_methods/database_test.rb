@@ -1,11 +1,11 @@
 require "test_helper"
 
 class DatabaseTest < ActiveSupport::TestCase
-  class JustDatabaseDelivery < Noticed::Base
+  class JustDatabaseDelivery < Unnoticed::Base
     deliver_by :database
   end
 
-  class WithDelayedDatabaseDelivery < Noticed::Base
+  class WithDelayedDatabaseDelivery < Unnoticed::Base
     deliver_by :database, delay: 5.minutes
   end
 
@@ -37,7 +37,7 @@ class DatabaseTest < ActiveSupport::TestCase
     CommentNotification.with(foo: :bar).deliver_later(user)
     perform_enqueued_jobs
     assert_not_nil Notification.last
-    assert_equal Notification.last, Noticed::DeliveryMethods::Test.delivered.first.record
+    assert_equal Notification.last, Unnoticed::DeliveryMethods::Test.delivered.first.record
   end
 
   test "serializes database attributes like ActiveJob does" do
@@ -49,11 +49,11 @@ class DatabaseTest < ActiveSupport::TestCase
 
   test "deliver returns the created record" do
     args = {
-      notification_class: "Noticed::Base",
+      notification_class: "Unnoticed::Base",
       recipient: user,
       options: {}
     }
-    record = Noticed::DeliveryMethods::Database.new.perform(args)
+    record = Unnoticed::DeliveryMethods::Database.new.perform(args)
 
     assert_kind_of ActiveRecord::Base, record
   end

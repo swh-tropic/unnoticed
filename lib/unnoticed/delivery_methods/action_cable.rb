@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class ActionCable < Base
       def deliver
@@ -26,7 +26,7 @@ module Noticed
           when Class
             value
           else
-            Noticed::NotificationChannel
+            Unnoticed::NotificationChannel
           end
         end
       end

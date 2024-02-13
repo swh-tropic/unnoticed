@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module Model
     DATABASE_ERROR_CLASS_NAMES = lambda {
       classes = [ActiveRecord::NoDatabaseError]
@@ -36,18 +36,18 @@ module Noticed
       end
 
       def noticed_coder
-        return Noticed::TextCoder unless table_exists?
+        return Unnoticed::TextCoder unless table_exists?
 
         case attribute_types["params"].type
         when :json, :jsonb
-          Noticed::Coder
+          Unnoticed::Coder
         else
-          Noticed::TextCoder
+          Unnoticed::TextCoder
         end
       rescue *DATABASE_ERROR_CLASS_NAMES => _error
         warn("Noticed was unable to bootstrap correctly as the database is unavailable.")
 
-        Noticed::TextCoder
+        Unnoticed::TextCoder
       end
     end
 

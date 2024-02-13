@@ -2,7 +2,7 @@
 
 require "rails/generators/named_base"
 
-module Noticed
+module Unnoticed
   module Generators
     class ModelGenerator < Rails::Generators::NamedBase
       include Rails::Generators::ResourceHelpers
@@ -19,7 +19,7 @@ module Noticed
       end
 
       def add_noticed_model
-        inject_into_class model_path, class_name, "  include Noticed::Model\n"
+        inject_into_class model_path, class_name, "  include Unnoticed::Model\n"
       end
 
       def add_not_nullable

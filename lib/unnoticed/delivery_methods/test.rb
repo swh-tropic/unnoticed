@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Test < Base
       class_attribute :delivered, default: []

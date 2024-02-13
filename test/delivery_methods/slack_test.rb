@@ -10,7 +10,7 @@ class SlackTest < ActiveSupport::TestCase
     end
   end
 
-  class SlackExample < Noticed::Base
+  class SlackExample < Unnoticed::Base
     deliver_by :slack, debug: true, url: :slack_url, logger: TestLogger.new
 
     def slack_url
@@ -25,7 +25,7 @@ class SlackTest < ActiveSupport::TestCase
 
   test "raises an error when http request fails" do
     stub_delivery_method_request(delivery_method: :slack, matcher: /hooks.slack.com/, type: :failure)
-    e = assert_raises(::Noticed::ResponseUnsuccessful) {
+    e = assert_raises(::Unnoticed::ResponseUnsuccessful) {
       SlackExample.new.deliver(user)
     }
     assert_equal HTTP::Response, e.response.class
@@ -39,7 +39,7 @@ class SlackTest < ActiveSupport::TestCase
       recipient: user,
       options: {url: :slack_url}
     }
-    response = Noticed::DeliveryMethods::Slack.new.perform(args)
+    response = Unnoticed::DeliveryMethods::Slack.new.perform(args)
 
     assert_kind_of HTTP::Response, response
   end

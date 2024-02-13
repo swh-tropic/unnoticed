@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module Translation
     extend ActiveSupport::Concern
 

@@ -14,7 +14,7 @@ Sends a notification to the browser via websockets (ActionCable channel by defau
 
   Override the ActionCable channel used to send notifications.
 
-  Defaults to `Noticed::NotificationChannel`
+  Defaults to `Unnoticed::NotificationChannel`
 
 * `stream` - *Optional*
 

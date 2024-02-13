@@ -1,7 +1,7 @@
 require "test_helper"
 
 class MicrosoftTeamsTest < ActiveSupport::TestCase
-  class MicrosoftTeamsExample < Noticed::Base
+  class MicrosoftTeamsExample < Unnoticed::Base
     deliver_by :microsoft_teams, debug: true, url: :teams_url, format: :to_teams
 
     def teams_url
@@ -38,7 +38,7 @@ class MicrosoftTeamsTest < ActiveSupport::TestCase
   test "raises an error when http request fails" do
     stub_delivery_method_request(delivery_method: :microsoft_teams, matcher: /outlook.office.com/, type: :failure)
 
-    e = assert_raises(::Noticed::ResponseUnsuccessful) {
+    e = assert_raises(::Unnoticed::ResponseUnsuccessful) {
       MicrosoftTeamsExample.new.deliver(user)
     }
 
@@ -53,7 +53,7 @@ class MicrosoftTeamsTest < ActiveSupport::TestCase
       recipient: user,
       options: {url: :teams_url, format: :to_teams}
     }
-    response = Noticed::DeliveryMethods::MicrosoftTeams.new.perform(args)
+    response = Unnoticed::DeliveryMethods::MicrosoftTeams.new.perform(args)
 
     assert_kind_of HTTP::Response, response
   end
