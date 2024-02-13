@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   class Coder
     def self.load(data)
       return if data.nil?

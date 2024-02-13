@@ -1,6 +1,6 @@
 require "test_helper"
 
-class IosExample < Noticed::Base
+class IosExample < Unnoticed::Base
   deliver_by :ios
 
   def ios_device_tokens(recipient)
@@ -8,14 +8,14 @@ class IosExample < Noticed::Base
   end
 end
 
-class IosExampleWithoutDeviceTokens < Noticed::Base
+class IosExampleWithoutDeviceTokens < Unnoticed::Base
   deliver_by :ios
 end
 
 class IosTest < ActiveSupport::TestCase
   test "raises error when bundle_identifier missing" do
     exception = assert_raises ArgumentError do
-      Noticed::DeliveryMethods::Ios.new.perform(notification_class: "IosExample")
+      Unnoticed::DeliveryMethods::Ios.new.perform(notification_class: "IosExample")
     end
 
     assert_equal "bundle_identifier is missing", exception.message
@@ -23,7 +23,7 @@ class IosTest < ActiveSupport::TestCase
 
   test "raises error when key_id missing" do
     exception = assert_raises ArgumentError do
-      Noticed::DeliveryMethods::Ios.new.perform(
+      Unnoticed::DeliveryMethods::Ios.new.perform(
         notification_class: "IosExample",
         options: {
           bundle_identifier: "test"
@@ -36,7 +36,7 @@ class IosTest < ActiveSupport::TestCase
 
   test "raises error when team_id missing" do
     exception = assert_raises ArgumentError do
-      Noticed::DeliveryMethods::Ios.new.perform(
+      Unnoticed::DeliveryMethods::Ios.new.perform(
         notification_class: "IosExample",
         options: {
           bundle_identifier: "test",
@@ -50,7 +50,7 @@ class IosTest < ActiveSupport::TestCase
 
   test "raises error when cert missing" do
     exception = assert_raises ArgumentError do
-      Noticed::DeliveryMethods::Ios.new.perform(
+      Unnoticed::DeliveryMethods::Ios.new.perform(
         notification_class: "IosExample",
         options: {
           bundle_identifier: "test",
@@ -66,7 +66,7 @@ class IosTest < ActiveSupport::TestCase
   test "raises error when ios_device_tokens method is missing" do
     assert_raises NoMethodError do
       File.stub :exist?, true do
-        Noticed::DeliveryMethods::Ios.new.perform(
+        Unnoticed::DeliveryMethods::Ios.new.perform(
           notification_class: "IosExampleWithoutDeviceTokens",
           options: {
             bundle_identifier: "test",

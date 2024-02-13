@@ -1,6 +1,6 @@
 # ActionCable Notifications
 
-ActionCable notifications in noticed are broadcast to the Noticed::NotificationChannel.
+ActionCable notifications in noticed are broadcast to the Unnoticed::NotificationChannel.
 
 By default, we simply send over the `params` as JSON and subscribe to the `current_user` stream.
 
@@ -29,16 +29,16 @@ module ApplicationCable
 end
 ```
 
-## Subscribing to the Noticed::NotificationChannel with Javascript
+## Subscribing to the Unnoticed::NotificationChannel with Javascript
 
-To receive Noticed notifications client-side, you'll need to subscribe to the Noticed::NotificationChannel.
+To receive Noticed notifications client-side, you'll need to subscribe to the Unnoticed::NotificationChannel.
 
 ```javascript
 // app/javascript/channels/notification_channel.js
 
 import consumer from "./consumer"
 
-consumer.subscriptions.create("Noticed::NotificationChannel", {
+consumer.subscriptions.create("Unnoticed::NotificationChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },

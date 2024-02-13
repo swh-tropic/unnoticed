@@ -2,15 +2,15 @@ require "test_helper"
 
 class CoderTest < ActiveSupport::TestCase
   test "uses TextCoder for text columns" do
-    assert_equal Noticed::TextCoder, TextNotification.noticed_coder
+    assert_equal Unnoticed::TextCoder, TextNotification.noticed_coder
   end
 
   test "uses Coder for json columns" do
-    assert_equal Noticed::Coder, JsonNotification.noticed_coder
+    assert_equal Unnoticed::Coder, JsonNotification.noticed_coder
   end
 
   test "uses Coder for jsonb columns" do
-    assert_equal Noticed::Coder, JsonbNotification.noticed_coder
+    assert_equal Unnoticed::Coder, JsonbNotification.noticed_coder
   end
 
   test "serializes globalid objects with text column" do

@@ -1,3 +1,3 @@
 class TextNotification < ApplicationRecord
-  include Noticed::Model
+  include Unnoticed::Model
 end

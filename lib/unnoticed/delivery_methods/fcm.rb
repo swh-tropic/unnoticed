@@ -9,7 +9,7 @@ require "googleauth"
 #   end
 # end
 
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Fcm < Base
       BASE_URI = "https://fcm.googleapis.com/v1/projects/"

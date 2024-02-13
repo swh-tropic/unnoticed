@@ -1,4 +1,4 @@
-class DeliveryMethods::<%= class_name %> < Noticed::DeliveryMethods::Base
+class DeliveryMethods::<%= class_name %> < Unnoticed::DeliveryMethods::Base
   def deliver
     # Logic for sending the notification
   end

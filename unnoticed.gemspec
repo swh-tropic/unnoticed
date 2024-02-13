@@ -1,12 +1,12 @@
 $:.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
-require "noticed/version"
+require "unnoticed/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name = "noticed"
-  spec.version = Noticed::VERSION
+  spec.name = "unnoticed"
+  spec.version = Unnoticed::VERSION
   spec.authors = ["Chris Oliver"]
   spec.email = ["excid3@gmail.com"]
   spec.homepage = "https://github.com/excid3/noticed"

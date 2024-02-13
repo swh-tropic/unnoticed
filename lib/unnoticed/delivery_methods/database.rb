@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Database < Base
       # Must return the database record

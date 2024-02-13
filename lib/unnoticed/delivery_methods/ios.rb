@@ -1,6 +1,6 @@
 require "apnotic"
 
-module Noticed
+module Unnoticed
   module DeliveryMethods
     class Ios < Base
       cattr_accessor :connection_pool

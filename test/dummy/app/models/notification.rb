@@ -1,3 +1,3 @@
 class Notification < ApplicationRecord
-  include Noticed::Model
+  include Unnoticed::Model
 end

@@ -1,20 +1,20 @@
 require "test_helper"
 
-class IfExample < Noticed::Base
+class IfExample < Unnoticed::Base
   deliver_by :test, if: :falsey
   def falsey
     false
   end
 end
 
-class UnlessExample < Noticed::Base
+class UnlessExample < Unnoticed::Base
   deliver_by :test, unless: :truthy
   def truthy
     true
   end
 end
 
-class RecipientExample < Noticed::Base
+class RecipientExample < Unnoticed::Base
   deliver_by :database
 
   def message
@@ -22,29 +22,29 @@ class RecipientExample < Noticed::Base
   end
 end
 
-class IfRecipientExample < Noticed::Base
+class IfRecipientExample < Unnoticed::Base
   deliver_by :test, if: :falsey
   def falsey
     raise ArgumentError unless recipient
   end
 end
 
-class UnlessRecipientExample < Noticed::Base
+class UnlessRecipientExample < Unnoticed::Base
   deliver_by :test, unless: :truthy
   def truthy
     raise ArgumentError unless recipient
   end
 end
 
-class AttributeExample < Noticed::Base
+class AttributeExample < Unnoticed::Base
   param :user_id
 end
 
-class MultipleParamsExample < Noticed::Base
+class MultipleParamsExample < Unnoticed::Base
   params :foo, :bar
 end
 
-class CallbackExample < Noticed::Base
+class CallbackExample < Unnoticed::Base
   class_attribute :callbacks, default: []
 
   deliver_by :database
@@ -72,30 +72,30 @@ class CallbackExample < Noticed::Base
   end
 end
 
-class RequiredOption < Noticed::DeliveryMethods::Base
+class RequiredOption < Unnoticed::DeliveryMethods::Base
   def deliver
   end
 
   def self.validate!(options)
     unless options.key?(:a_required_option)
-      raise Noticed::ValidationError, "the `a_required_option` attribute is missing"
+      raise Unnoticed::ValidationError, "the `a_required_option` attribute is missing"
     end
   end
 end
 
-class NotificationWithValidOptions < Noticed::Base
+class NotificationWithValidOptions < Unnoticed::Base
   deliver_by :custom, class: "RequiredOption", a_required_option: true
 end
 
-class NotificationWithoutValidOptions < Noticed::Base
+class NotificationWithoutValidOptions < Unnoticed::Base
   deliver_by :custom, class: "RequiredOption"
 end
 
-class With5MinutesDelay < Noticed::Base
+class With5MinutesDelay < Unnoticed::Base
   deliver_by :test, delay: 5.minutes
 end
 
-class WithDynamicDelay < Noticed::Base
+class WithDynamicDelay < Unnoticed::Base
   deliver_by :test, delay: :dynamic_delay
 
   def dynamic_delay
@@ -103,11 +103,11 @@ class WithDynamicDelay < Noticed::Base
   end
 end
 
-class WithCustomQueue < Noticed::Base
+class WithCustomQueue < Unnoticed::Base
   deliver_by :test, queue: "custom"
 end
 
-class Noticed::Test < ActiveSupport::TestCase
+class Unnoticed::Test < ActiveSupport::TestCase
   test "stores data in params" do
     notification = make_notification(foo: :bar, user: user)
     assert_equal :bar, notification.params[:foo]
@@ -126,12 +126,12 @@ class Noticed::Test < ActiveSupport::TestCase
 
   test "cancels delivery when if clause is falsey" do
     IfExample.deliver(user)
-    assert_empty Noticed::DeliveryMethods::Test.delivered
+    assert_empty Unnoticed::DeliveryMethods::Test.delivered
   end
 
   test "cancels delivery when unless clause is truthy" do
     UnlessExample.deliver(user)
-    assert_empty Noticed::DeliveryMethods::Test.delivered
+    assert_empty Unnoticed::DeliveryMethods::Test.delivered
   end
 
   test "has access to recipient in if clause" do
@@ -152,7 +152,7 @@ class Noticed::Test < ActiveSupport::TestCase
   end
 
   test "validates attributes for params" do
-    assert_raises Noticed::ValidationError do
+    assert_raises Unnoticed::ValidationError do
       AttributeExample.deliver(users(:one))
     end
   end
@@ -167,7 +167,7 @@ class Noticed::Test < ActiveSupport::TestCase
   end
 
   test "runs callbacks on delivery methods" do
-    assert_difference "Noticed::DeliveryMethods::Test.callbacks.count" do
+    assert_difference "Unnoticed::DeliveryMethods::Test.callbacks.count" do
       make_notification(foo: :bar).deliver(user)
     end
   end
@@ -182,13 +182,13 @@ class Noticed::Test < ActiveSupport::TestCase
   test "assigns record to notification when delivering" do
     notification = make_notification(foo: :bar)
     notification.deliver(user)
-    assert_equal Notification.last, Noticed::DeliveryMethods::Test.delivered.last.record
-    assert_equal notification.record, Noticed::DeliveryMethods::Test.delivered.last.record
+    assert_equal Notification.last, Unnoticed::DeliveryMethods::Test.delivered.last.record
+    assert_equal notification.record, Unnoticed::DeliveryMethods::Test.delivered.last.record
   end
 
   test "assigns recipient to notification when delivering" do
     make_notification(foo: :bar).deliver(user)
-    assert_equal user, Noticed::DeliveryMethods::Test.delivered.last.recipient
+    assert_equal user, Unnoticed::DeliveryMethods::Test.delivered.last.recipient
   end
 
   test "validates options of delivery methods when options are valid" do
@@ -198,7 +198,7 @@ class Noticed::Test < ActiveSupport::TestCase
   end
 
   test "validates options of delivery methods when options are invalid" do
-    assert_raises Noticed::ValidationError do
+    assert_raises Unnoticed::ValidationError do
       NotificationWithoutValidOptions.deliver(user)
     end
   end

@@ -1,2 +1,2 @@
-class DiscordNotification < Noticed::DeliveryMethods::Test
+class DiscordNotification < Unnoticed::DeliveryMethods::Test
 end

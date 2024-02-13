@@ -1,4 +1,4 @@
-module Noticed
+module Unnoticed
   class Base
     include Translation
     include Rails.application.routes.url_helpers
@@ -132,7 +132,7 @@ module Noticed
       if options[:class]
         options[:class].constantize
       else
-        "Noticed::DeliveryMethods::#{name.to_s.camelize}".constantize
+        "Unnoticed::DeliveryMethods::#{name.to_s.camelize}".constantize
       end
     end
 

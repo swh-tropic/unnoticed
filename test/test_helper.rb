@@ -23,7 +23,7 @@ end
 require "minitest/unit"
 require "webmock/minitest"
 
-class ExampleNotification < Noticed::Base
+class ExampleNotification < Unnoticed::Base
   class_attribute :callback_responses, default: []
 
   deliver_by :test, foo: :bar
@@ -39,7 +39,7 @@ class ActiveSupport::TestCase
   include ActionMailer::TestHelper
 
   teardown do
-    Noticed::DeliveryMethods::Test.clear!
+    Unnoticed::DeliveryMethods::Test.clear!
   end
 
   private

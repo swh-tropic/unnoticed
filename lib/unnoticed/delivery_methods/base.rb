@@ -1,6 +1,6 @@
-module Noticed
+module Unnoticed
   module DeliveryMethods
-    class Base < Noticed.parent_class.constantize
+    class Base < Unnoticed.parent_class.constantize
       extend ActiveModel::Callbacks
       define_model_callbacks :deliver
 

@@ -32,9 +32,9 @@
 en:
   hello: "Hello world"
   notifications:
-    noticed:
+    unnoticed:
       i18n_example:
         message: "This is a notification"
-  noticed:
+  unnoticed:
     scoped_i18n_example:
       message: "This is a custom scoped translation"

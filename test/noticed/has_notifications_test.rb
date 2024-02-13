@@ -1,7 +1,7 @@
 require "test_helper"
 
 class HasNotificationsTest < ActiveSupport::TestCase
-  class DatabaseDelivery < Noticed::Base
+  class DatabaseDelivery < Unnoticed::Base
     deliver_by :database
   end
 

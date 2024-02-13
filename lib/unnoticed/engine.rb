@@ -1,8 +1,8 @@
-module Noticed
+module Unnoticed
   class Engine < ::Rails::Engine
     initializer "noticed.has_notifications" do
       ActiveSupport.on_load(:active_record) do
-        include Noticed::HasNotifications
+        include Unnoticed::HasNotifications
       end
     end
 

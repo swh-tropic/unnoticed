@@ -11,7 +11,7 @@
 
 ### 1.6.1
 
-* Fix overridden `Object#method` in `Noticed::DeliveryMethods::Email` - @quadule
+* Fix overridden `Object#method` in `Unnoticed::DeliveryMethods::Email` - @quadule
 * Fix Rails 7.1 deprecation warning #281 - @excid3
 
 ### 1.6.0
@@ -20,7 +20,7 @@
 ```ruby
 {:noticed_error=>"Couldn't find Account with 'id'=100000", :original_params=>{"foo"=>"bar", "account"=>{"_aj_globalid"=>"gid://dummy/Account/100000"}, "_aj_symbol_keys"=>["account"]}}
 ```
-* Add `deserialize_error?` method to Noticed::Model for detecting if a model had issues deserializing params. You can use this method to clean up invalid notifications.
+* Add `deserialize_error?` method to Unnoticed::Model for detecting if a model had issues deserializing params. You can use this method to clean up invalid notifications.
 
 ### 1.5.9
 
@@ -52,7 +52,7 @@
 
 ### 1.5.2
 
-* Rescue from database connection errors when loading Noticed::Model #121 - @adriancb
+* Rescue from database connection errors when loading Unnoticed::Model #121 - @adriancb
 
 ### 1.5.1
 
@@ -142,7 +142,7 @@
 
 ### 1.2.10
 
-* [NEW] Add Noticed::TextCoder for databases without json support
+* [NEW] Add Unnoticed::TextCoder for databases without json support
 * [NEW] Update generator to make params column json for MySQL, jsonb for Postgres, and text for everything else
 * [FIX] Keyword args warning for delivery methods is now fixed
 
@@ -192,7 +192,7 @@
 * Allow notification objects to call Rails url helpers directly
 * Add `noticed:notification` generator
 * Allow changing database association name with `deliver_by :database, association: :notifications`
-* Add `Noticed::Model` concern for database notifications
+* Add `Unnoticed::Model` concern for database notifications
 * Add notification database model generator
 
 ### 1.1.0

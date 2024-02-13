@@ -1,7 +1,7 @@
 require "test_helper"
 
 class VonageTest < ActiveSupport::TestCase
-  class VonageExample < Noticed::Base
+  class VonageExample < Unnoticed::Base
     deliver_by :vonage, format: :to_vonage, debug: true
 
     def to_vonage
@@ -23,7 +23,7 @@ class VonageTest < ActiveSupport::TestCase
 
   test "raises an error when http request fails" do
     stub_delivery_method_request(delivery_method: :vonage, matcher: /rest.nexmo.com/, type: :failure)
-    e = assert_raises(::Noticed::ResponseUnsuccessful) {
+    e = assert_raises(::Unnoticed::ResponseUnsuccessful) {
       VonageExample.new.deliver(user)
     }
     assert_equal HTTP::Response, e.response.class
@@ -37,7 +37,7 @@ class VonageTest < ActiveSupport::TestCase
       recipient: user,
       options: {format: :to_vonage}
     }
-    response = Noticed::DeliveryMethods::Vonage.new.perform(args)
+    response = Unnoticed::DeliveryMethods::Vonage.new.perform(args)
 
     assert_kind_of HTTP::Response, response
   end

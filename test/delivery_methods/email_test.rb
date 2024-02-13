@@ -1,10 +1,10 @@
 require "test_helper"
 
-class EmailDeliveryWithoutMailer < Noticed::Base
+class EmailDeliveryWithoutMailer < Unnoticed::Base
   deliver_by :email
 end
 
-class EmailDeliveryWithActiveJob < Noticed::Base
+class EmailDeliveryWithActiveJob < Unnoticed::Base
   deliver_by :email, mailer: "UserMailer", enqueue: true, method: "comment_notification"
 end
 
@@ -20,21 +20,21 @@ class EmailTest < ActiveSupport::TestCase
   end
 
   test "validates `mailer` is specified for email delivery method" do
-    assert_raises Noticed::ValidationError do
+    assert_raises Unnoticed::ValidationError do
       EmailDeliveryWithoutMailer.new.deliver(user)
     end
   end
 
   test "deliver returns the email object" do
     args = {
-      notification_class: "Noticed::Base",
+      notification_class: "Unnoticed::Base",
       recipient: user,
       options: {
         mailer: "UserMailer",
         method: "comment_notification"
       }
     }
-    email = Noticed::DeliveryMethods::Email.new.perform(args)
+    email = Unnoticed::DeliveryMethods::Email.new.perform(args)
 
     assert_kind_of Mail::Message, email
   end
