@@ -4,6 +4,8 @@
 
 Because noticed v2 is basically a rewrite that we don't wanna deal with right now.
 
+This repository forks `noticed` v1.6.3 and changes the root namespace to `unnoticed` and is tagged v1.6.4
+
 [Proposed upgrade plan](https://app.shortcut.com/tropic/write/IkRvYyI6I3V1aWQgIjY1YmQ1MDk3LWEwM2EtNGFlMS1hMTc3LTQ1NWFmMjNlYTQ0MCI=) for the soul who is tasked with bringing our app up to date
 
 ### 🎉  Notifications for your Ruby on Rails app.
